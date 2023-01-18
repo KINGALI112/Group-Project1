@@ -28,6 +28,15 @@ body {
     display: flex;
 }
 
+
+.fixed_nav {
+    display: flex;
+    justify-content: flex-end;
+    width: 950px;
+    line-height: 86px;
+}
+
+
 .home > img {
     width: 100%;
     margin: auto;
@@ -37,6 +46,19 @@ body {
     display: inline-block;
     background-position: center;
 }
+
+
+.centered {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #ffffff;
+    text-align: center;
+    font-size: 100px;
+  }
+
+
 
 
 .workouts {
