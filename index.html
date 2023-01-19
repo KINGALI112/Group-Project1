@@ -12,6 +12,28 @@
     <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 <body>
+    <div class="popup">
+        <button id="close">&times;</button>
+        <h2>🏋️ Let's Workout 💪 </h2>
+        <p>Please fill in this form to sign up for more workout!</p>
+       
+        <div class="form">
+            <div class="input">
+                <label for="name"><b>Name</b></label>
+                <input type="text" placeholder="Enter Name"></div>
+        
+                <label for="email"><b>Email</b></label>
+                <input type="text" placeholder="Enter Email"></div>
+                
+                <p>By filling this form, you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
+                <div class="clearfix">
+                    <button type="signup" class="signup">Sign Up</button>
+
+            </div>
+        </div>
+    </div>
+
+
     <section class="wrap">
             <div class="navbar">
                     <img src="./Images/home/barbell.jpeg">
@@ -20,7 +42,7 @@
                 <a href="#challenges">CHALLENGES</a>
                 <a href="#plans">DIET PLANS</a>
                 <a href="#locations">LOCATIONS</a>
-                <a href="#signup">SIGN UP</a>
+
                 <div class="fixed_search_area">
                     <form>
                         <input type="search" placeholder="Search">
@@ -28,9 +50,6 @@
                             <button id="search" class="btn">Search<i class="fa-sharp fa-solid fa-magnifying-glass"></i></button>
                         </span>
                     </form>
-
-          
-
             </div>
         </div>
     </section>
@@ -51,7 +70,7 @@
                     <div class="workouts">
                         <img src="./Images/workout/newbee-workout-intro.jpg">
                     </div>
-                    <div class="workouts1">
+                    <div class="workouts">
                         <img src="./Images/workout/treadmill-workout-intro.jpg">
                     </div>
             </div>
@@ -132,23 +151,6 @@
             </div>
         </div>
 
-        <div id="signup" class="signup">
-            <h1>Sign Up</h1>
-            <div class="signup_container">
-                    <p>Please fill in this form to sign up</p>
-
-                    <label for="name"><b>Name</b></label>
-                    <input type="text" placeholder="Enter Name" name="name" required>
-
-                    <label for="email"><b>Email</b></label>
-                    <input type="text" placeholder="Enter Email" name="email" required>
-
-                    <p>By filling this form you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
-          
-                    <div class="clearfix">
-                      <button type="submit" class="signupbtn">Sign Up</button>
-            </div>
-        </div>
     </section>
 
 
