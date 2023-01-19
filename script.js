@@ -43,8 +43,8 @@ var vidWC3;
 function onYouTubeIframeAPIReady() {
     // var = new YT.Payer('id in html', {video parameters})
     vidFB1 = new YT.Player('vidFB1', {
-        height: '390',
-        width: '640',
+        height: '240',
+        width: '320',
         videoId: 'GViX8riaHX4',
         playerVars: {
             'playsinline': 1
@@ -56,8 +56,8 @@ function onYouTubeIframeAPIReady() {
     });
 
     vidFB2 = new YT.Player('vidFB2', {
-        height: '390',
-        width: '640',
+        height: '240',
+        width: '320',
         videoId: 'sinkIlViPG8',
         playerVars: {
             'playsinline': 1
@@ -69,8 +69,8 @@ function onYouTubeIframeAPIReady() {
     });
 
     vidFB3 = new YT.Player('vidFB3', {
-        height: '390',
-        width: '640',
+        height: '240',
+        width: '320',
         videoId: 'rI_6l992GrA',
         playerVars: {
             'playsinline': 1
@@ -82,8 +82,8 @@ function onYouTubeIframeAPIReady() {
     });
 
     vidUB1 = new YT.Player('vidUB1', {
-        height: '390',
-        width: '640',
+        height: '240',
+        width: '320',
         videoId: 'UEWEYeJGkLM',
         playerVars: {
             'playsinline': 1
@@ -95,8 +95,8 @@ function onYouTubeIframeAPIReady() {
     });
 
     vidUB2 = new YT.Player('vidUB2', {
-        height: '390',
-        width: '640',
+        height: '240',
+        width: '320',
         videoId: 'gy4vx4wQGDE',
         playerVars: {
             'playsinline': 1
@@ -108,8 +108,8 @@ function onYouTubeIframeAPIReady() {
     });
 
     vidUB3 = new YT.Player('vidUB3', {
-        height: '390',
-        width: '640',
+        height: '240',
+        width: '320',
         videoId: 'zZ8tWnE8kzQ',
         playerVars: {
             'playsinline': 1
@@ -121,8 +121,8 @@ function onYouTubeIframeAPIReady() {
     });
     
     vidLB1 = new YT.Player('vidLB1', {
-        height: '390',
-        width: '640',
+        height: '240',
+        width: '320',
         videoId: '0zhvUV1bAVQ',
         playerVars: {
             'playsinline': 1
@@ -134,8 +134,8 @@ function onYouTubeIframeAPIReady() {
     });
 
     vidLB2 = new YT.Player('vidLB2', {
-        height: '390',
-        width: '640',
+        height: '240',
+        width: '320',
         videoId: '-2DkbkIyq5c',
         playerVars: {
             'playsinline': 1
@@ -147,8 +147,8 @@ function onYouTubeIframeAPIReady() {
     });
 
     vidLB3 = new YT.Player('vidLB3', {
-        height: '390',
-        width: '640',
+        height: '240',
+        width: '320',
         videoId: 'WGA_ctAMkMk',
         playerVars: {
             'playsinline': 1
@@ -160,8 +160,8 @@ function onYouTubeIframeAPIReady() {
     });
 
     vidWC1 = new YT.Player('vidWC1', {
-        height: '390',
-        width: '640',
+        height: '240',
+        width: '320',
         videoId: '2pLT-olgUJs',
         playerVars: {
             'playsinline': 1
@@ -173,8 +173,8 @@ function onYouTubeIframeAPIReady() {
     });
 
     vidWC2 = new YT.Player('vidWC2', {
-        height: '390',
-        width: '640',
+        height: '240',
+        width: '320',
         videoId: '2MoGxae-zyo',
         playerVars: {
             'playsinline': 1
@@ -186,8 +186,8 @@ function onYouTubeIframeAPIReady() {
     });
 
     vidWC3 = new YT.Player('vidWC3', {
-        height: '390',
-        width: '640',
+        height: '240',
+        width: '320',
         videoId: '31BiQiXk8jQ',
         playerVars: {
             'playsinline': 1
@@ -230,45 +230,40 @@ function stopVideo() {
 // Declare map as a global variable
 var map;
 
+// url for geoapify
+var geoapifyUrl = "https://api.geoapify.com/v1/ipinfo?&apiKey=01ee02f5513c4b9c909ae0de69af3657";
+
 // use google maps api built-in mechanism to attach dom events
 google.maps.event.addDomListener(window, "load", function () {
+
+    // use geoapify to get latitude and longitude from IP
+    async function getIPLatLon(url) {
+        var response = await fetch(url);
+        var data = await response.json();
+        //console.log(data);
+        window.localStorage.setItem('latitude', JSON.stringify(data.location.latitude));
+        window.localStorage.setItem('longitude', JSON.stringify(data.location.longitude));
+    }
+    getIPLatLon(geoapifyUrl);
+
+    ipLat = Number(window.localStorage.getItem('latitude'));
+    ipLon = Number(window.localStorage.getItem('longitude'));
+
     // create map
     var map = new google.maps.Map(document.getElementById("map_div"), {
-        center: new google.maps.LatLng(33.808678, -117.918921),
-        zoom: 14,
+        center: new google.maps.LatLng(ipLat, ipLon),
+        zoom: 16,
         mapTypeId: google.maps.MapTypeId.ROADMAP
     });
 
-    // create infowindow (which will be used by markers)
-    var infoWindow = new google.maps.InfoWindow();
+    // add event listener to the map
+    map.addListener("click", (e) => {
+        panTo(e.latLng, map);
+    });
 
-    // marker creater function (acts as a closure for html parameter)
-    function createMarker(options, html) {
-        var marker = new google.maps.Marker(options);
-        if (html) {
-            google.maps.event.addListener(marker, "click", function () {
-                infoWindow.setContent(html);
-                infoWindow.open(options.map, this);
-            });
-        }
-        return marker;
+    // create function to pan on click
+    function panTo(latLng, map) {
+        map.panTo(latLng);
     }
-
-    // add markers to map
-    var marker0 = createMarker({
-        position: new google.maps.LatLng(33.808678, -117.918921),
-        map: map,
-        icon: "http://1.bp.blogspot.com/_GZzKwf6g1o8/S6xwK6CSghI/AAAAAAAAA98/_iA3r4Ehclk/s1600/marker-green.png"
-    }, "<h1>Marker 0</h1><p>This is the home marker.</p>");
-
-    var marker1 = createMarker({
-        position: new google.maps.LatLng(33.818038, -117.928492),
-        map: map
-    }, "<h1>Marker 1</h1><p>This is marker 1</p>");
-
-    var marker2 = createMarker({
-        position: new google.maps.LatLng(33.803333, -117.915278),
-        map: map
-    }, "<h1>Marker 2</h1><p>This is marker 2</p>");
 });
 // End of code for google maps
