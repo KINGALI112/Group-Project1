@@ -94,11 +94,14 @@ body {
 
 
 .map {
+    margin-top: 200px;
     height: 400px;
     width: 600px;
 }
 
-
+h2 {
+    color: white;
+}
 
 
 .challenges {
